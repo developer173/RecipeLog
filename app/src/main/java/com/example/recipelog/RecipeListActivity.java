@@ -64,4 +64,9 @@ public class RecipeListActivity extends AppCompatActivity {
 
         listRecipe.setAdapter(adapter);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadRecipes();
+    }
 }

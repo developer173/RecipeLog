@@ -62,6 +62,7 @@ public class RecipeRepository {
         return recipeList;
     }
 
+
     public Recipe getById(int id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
@@ -87,6 +88,66 @@ public class RecipeRepository {
         }
 
         return null;
+    }
+    public int update(Recipe recipe) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(
+                RecipeDbHelper.COLUMN_RECIPE_NAME,
+                recipe.getRecipeName()
+        );
+        values.put(
+                RecipeDbHelper.COLUMN_CATEGORY,
+                recipe.getCategory()
+        );
+        values.put(
+                RecipeDbHelper.COLUMN_MAIN_INGREDIENT,
+                recipe.getMainIngredient()
+        );
+        values.put(
+                RecipeDbHelper.COLUMN_RECIPE_TEXT,
+                recipe.getRecipeText()
+        );
+        values.put(
+                RecipeDbHelper.COLUMN_MEMO,
+                recipe.getMemo()
+        );
+        values.put(
+                RecipeDbHelper.COLUMN_UPDATED_AT,
+                getNowText()
+        );
+
+        String whereClause =
+                RecipeDbHelper.COLUMN_ID + " = ?";
+
+        String[] whereArgs = {
+                String.valueOf(recipe.getId())
+        };
+
+        return db.update(
+                RecipeDbHelper.TABLE_RECIPES,
+                values,
+                whereClause,
+                whereArgs
+        );
+    }
+
+    public int deleteById(int recipeId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String whereClause =
+                RecipeDbHelper.COLUMN_ID + " = ?";
+
+        String[] whereArgs = {
+                String.valueOf(recipeId)
+        };
+
+        return db.delete(
+                RecipeDbHelper.TABLE_RECIPES,
+                whereClause,
+                whereArgs
+        );
     }
 
     private Recipe cursorToRecipe(Cursor cursor) {
