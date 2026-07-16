@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class RecipeDbHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "recipe_log.db";
+    public static final String DATABASE_NAME = "recipe_log.db";
     private static final int DATABASE_VERSION = 1;
 
     public static final String TABLE_RECIPES = "recipes";

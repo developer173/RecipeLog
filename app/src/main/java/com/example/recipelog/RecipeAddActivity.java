@@ -3,6 +3,7 @@ package com.example.recipelog;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +19,10 @@ public class RecipeAddActivity extends AppCompatActivity {
     private EditText editRecipeText;
     private EditText editMemo;
 
+    private Button buttonCancelRecipe;
     private Button buttonSaveRecipe;
 
+    private TextView textRecipeFormTitle;
     private RecipeRepository recipeRepository;
 
     private int recipeId = -1;
@@ -38,7 +41,9 @@ public class RecipeAddActivity extends AppCompatActivity {
         editRecipeText = findViewById(R.id.editRecipeText);
         editMemo = findViewById(R.id.editMemo);
 
+        buttonCancelRecipe = findViewById(R.id.buttonCancelRecipe);
         buttonSaveRecipe = findViewById(R.id.buttonSaveRecipe);
+        textRecipeFormTitle = findViewById(R.id.textRecipeFormTitle);
 
         recipeId = getIntent().getIntExtra("recipe_id", -1);
 
@@ -47,6 +52,7 @@ public class RecipeAddActivity extends AppCompatActivity {
             loadRecipeForEdit();
         }
 
+        buttonCancelRecipe.setOnClickListener(v -> finish());
         buttonSaveRecipe.setOnClickListener(v -> saveRecipe());
     }
 
@@ -70,6 +76,7 @@ public class RecipeAddActivity extends AppCompatActivity {
         editRecipeText.setText(recipe.getRecipeText());
         editMemo.setText(recipe.getMemo());
 
+        textRecipeFormTitle.setText("レシピ編集");
         buttonSaveRecipe.setText("更新");
         setTitle("レシピ編集");
     }
@@ -91,12 +98,26 @@ public class RecipeAddActivity extends AppCompatActivity {
                 editMemo.getText().toString().trim();
 
         if (recipeName.isEmpty()) {
-            Toast.makeText(
-                    this,
-                    "料理名を入力してください",
-                    Toast.LENGTH_SHORT
-            ).show();
+            editRecipeName.setError("料理名を入力してください");
+            editRecipeName.requestFocus();
+            return;
+        }
 
+        if (category.isEmpty()) {
+            editCategory.setError("料理種別を入力してください");
+            editCategory.requestFocus();
+            return;
+        }
+
+        if (mainIngredient.isEmpty()) {
+            editMainIngredient.setError("メイン食材を入力してください");
+            editMainIngredient.requestFocus();
+            return;
+        }
+
+        if (recipeText.isEmpty()) {
+            editRecipeText.setError("レシピを入力してください");
+            editRecipeText.requestFocus();
             return;
         }
 

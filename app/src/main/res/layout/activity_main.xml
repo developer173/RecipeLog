@@ -33,6 +33,19 @@
             android:text="レシピ一覧"
             android:textSize="18sp"
             android:layout_marginTop="16dp"/>
+        <Button
+            android:id="@+id/buttonBackup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="バックアップ" />
+
+        <Button
+            android:id="@+id/buttonRestore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="リストア" />
 
     </LinearLayout>
 

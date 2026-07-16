@@ -23,7 +23,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private Button buttonEditRecipe;
     private Button buttonDeleteRecipe;
 
-    private int recipeId;
+    private int recipeId = -1;
     private Recipe currentRecipe;
     private RecipeRepository recipeRepository;
 
@@ -126,6 +126,14 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     "削除に失敗しました",
                     Toast.LENGTH_SHORT
             ).show();
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (recipeId != -1) {
+            loadRecipe(recipeId);
         }
     }
 }
